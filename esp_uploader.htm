@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SPIFFS Uploader</title>
+<style>
+input[type=submit] {
+  background-color: #7c8cf8;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+}
+</style>
+<script>    
+function uploader(e, up){
+  e.preventDefault();//  alert(up.data.value);
+	var xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {		
+		alert("Uploaded Successfully");
+	}
+};
+var a = new FormData();
+  a.append("data", up.data.files[0], up.data.value);
+  xhttp.open("POST", up.path.value + "/edit");
+  xhttp.send(a);	
+}    
+function updater(e, up){
+  e.preventDefault();//  alert(up.data.value);
+	var xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {		
+		alert("Uploaded Successfully");
+	}
+};
+var a = new FormData();
+  a.append("data", up.data.files[0], up.data.value);
+  xhttp.open("POST", up.path.value + "/update");
+  xhttp.send(a);	
+}
+</script>
+</head>
+<body>
+<form onsubmit="uploader(event, this)">
+	<input type="text" name="path" placeholder="host path http://" value="http://quasar_nmi.local">
+	<input type='file' name='data'>
+	<input type='submit' value='Update Spiffs' style="background-color: red;">
+</form>
+<br><br>
+<form onsubmit="updater(event, this)">
+	<input type="text" name="path" placeholder="host path http://" value="http://192.168.4.1">
+	<input type='file' name='data' accept=".bin">
+	<input type='submit' value='Update Firmware'>
+</form>
+</body>
+</html>
