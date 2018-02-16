@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1"> 
+<meta name="referrer" content="no-referrer" />
 <title>ESP SPIFFS Uploader</title>
 <style>
 input[type=submit] {
@@ -20,9 +21,9 @@ function uploader(e, up) {
   e.preventDefault(); //  alert(up.data.value);
   var path = document.getElementsByName("path")[0].value;
   if(!path.includes("http://")) 
-	path = "http://"+path;
+    path = "http://"+path;
   if(!path.endsWith("/")) 
-	path += "/";
+    path += "/";
   if (up.getAttribute('id') == "us")
     path += "edit";
   else
