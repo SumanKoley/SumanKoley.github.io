@@ -11,48 +11,43 @@ input[type=submit] {
   padding: 12px 20px;
   border: none;
   border-radius: 4px;
+  font-size: 1em;
+  font-weight: bold;
 }
 </style>
 <script>    
-function uploader(e, up){
-  e.preventDefault();//  alert(up.data.value);
-	var xhttp = new XMLHttpRequest();
-	xhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {		
-		alert("Uploaded Successfully");
-	}
-};
-var a = new FormData();
+function uploader(e, up) {
+  e.preventDefault(); //  alert(up.data.value);
+  var path = document.getElementsByName("path")[0];
+  if (up.getAttribute('id') == "us")
+    path += "/edit";
+  else
+    path += "/update";
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      alert("Uploaded Successfully");
+    }
+  };
+  var a = new FormData();
   a.append("data", up.data.files[0], up.data.value);
-  xhttp.open("POST", up.path.value + "/edit");
-  xhttp.send(a);	
-}    
-function updater(e, up){
-  e.preventDefault();//  alert(up.data.value);
-	var xhttp = new XMLHttpRequest();
-	xhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {		
-		alert("Uploaded Successfully");
-	}
-};
-var a = new FormData();
-  a.append("data", up.data.files[0], up.data.value);
-  xhttp.open("POST", up.path.value + "/update");
-  xhttp.send(a);	
+  xhttp.open("POST", path);
+  xhttp.send(a);
 }
 </script>
 </head>
 <body>
-<form onsubmit="uploader(event, this)">
-	<input type="text" name="path" placeholder="host path http://" value="http://quasar_nmi.local">
-	<input type='file' name='data'>
-	<input type='submit' value='Update Spiffs' style="background-color: red;">
+<input type="text" name="path" placeholder="host path http://" value="http://quasar_nmi.local">
+<br>
+<form id="us" onsubmit="uploader(event, this)">
+  <input type='file' name='data'>
+  <input type='submit' value='Update Spiffs' style="background-color: red;">
 </form>
-<br><br>
-<form onsubmit="updater(event, this)">
-	<input type="text" name="path" placeholder="host path http://" value="http://192.168.4.1">
-	<input type='file' name='data' accept=".bin">
-	<input type='submit' value='Update Firmware'>
+<br>
+<br>
+<form id="uf" onsubmit="uploader(event, this)">
+  <input type='file' name='data' accept=".bin">
+  <input type='submit' value='Update Firmware'>
 </form>
 </body>
 </html>
