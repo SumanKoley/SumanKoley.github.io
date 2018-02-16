@@ -18,11 +18,15 @@ input[type=submit] {
 <script>    
 function uploader(e, up) {
   e.preventDefault(); //  alert(up.data.value);
-  var path = document.getElementsByName("path")[0];
+  var path = document.getElementsByName("path")[0].value;
+  if(!path.includes("http://")) 
+	path = "http://"+path;
+  if(!path.endsWith("/")) 
+	path += "/";
   if (up.getAttribute('id') == "us")
-    path += "/edit";
+    path += "edit";
   else
-    path += "/update";
+    path += "update";
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
